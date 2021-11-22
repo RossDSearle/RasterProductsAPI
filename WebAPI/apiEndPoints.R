@@ -10,7 +10,7 @@ if(machineName=='soils-discovery'){
   deployDir <-'/srv/plumber/TERNLandscapes/RasterProductsAPI'
   logDir <- '/mnt/data/APILogs/SLGAapi/'
 }else{
-  deployDir <-'C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/SLGAapi'
+  deployDir <-'C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/APIs/RasterProductsAPI'
   logDir <- 'c:/temp/Logs'
 }
 
@@ -71,15 +71,16 @@ writeLogEntry <- function(logfile, logentry){
 #* @param component
 #* @param attribute
 #* @param source
-#* @param product
+#* @param datatype
 #*
 #* @tag Raster Products
 #* @get /Products
-apiGetProducts <- function( req, res, product=NULL, source=NULL,	attribute=NULL,	component=NULL, usr=NULL, key=NULL, format='json'){
+apiGetProducts <- function( req, res, datatype=NULL, source=NULL,	attribute=NULL,	component=NULL, usr=NULL, key=NULL, format='json'){
 
   tryCatch({
 
-    prodDF <- getProducts(Product=product, Source=source,	Attribute=attribute,	Component=component)
+    prodDF <- getProducts(DataType=datatype, Source=source,	Attribute=attribute,	Component=component)
+    print(prodDF)
 
     #library(terra)
     # r <- rast('/vsicurl/https://esoil.io/TERNLandscapes/Public/Products/TERN/Covariates/Mosaics/90m/Veg_LandCoverTrend_evi_mean.tif')

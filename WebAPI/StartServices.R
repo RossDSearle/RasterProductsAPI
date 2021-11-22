@@ -18,6 +18,7 @@ if(machineName=='soils-discovery'){
 
 source(paste0(deployDir, '/R/dbMethods.R'))
 source(paste0(deployDir, '/R/rasterMethods.R'))
+source(paste0(deployDir, '/R/apiHelpers.R'))
 
 #print(options())
 r <- plumb(paste0(deployDir, "/WebAPI/apiEndPoints.R"))

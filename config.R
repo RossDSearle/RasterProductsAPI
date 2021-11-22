@@ -2,7 +2,6 @@
 machineName <- as.character(Sys.info()['nodename'])
 if(machineName=='soils-discovery'){
 
- # SLGARoot <- paste0(storeRoot, '/Covariates')
   logDir <- '/mnt/data/APILogs/SoilDataFederator/'
   productsDB <- '/srv/plumber/TERNLandscapes/RasterProductsAPI/DB/RasterProducts.db'
 
