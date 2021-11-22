@@ -4,11 +4,8 @@ if(machineName=='soils-discovery'){
 
  # SLGARoot <- paste0(storeRoot, '/Covariates')
   logDir <- '/mnt/data/APILogs/SoilDataFederator/'
-<<<<<<< HEAD
-  productsDB <- '/srv/plumber/TERNLandscapes/RasterProductsAPI/RasterProducts.db'
-=======
   productsDB <- '/srv/plumber/TERNLandscapes/RasterProductsAPI/DB/RasterProducts.db'
->>>>>>> 860cb5e0047e54498c14d3a2d67dc7e96a18e8bb
+
 }else{
   SLGARoot <- paste0('D:/TERNSoils/National_digital_soil_property_maps')
   logDir <- 'c:/temp/Logs'

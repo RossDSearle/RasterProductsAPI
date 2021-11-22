@@ -1,10 +1,14 @@
+library(RSQLite)
+library(DBI)
 
 
 
-doQuery <- function(conn, sql){
+doQuery <- function(sql, params){
 
   conn <- DBI::dbConnect(RSQLite::SQLite(), productsDB)
+
   qry <- dbSendQuery(conn, sql)
+  dbBind(qry, params)
   res <- dbFetch(qry)
   dbClearResult(qry)
   dbDisconnect(conn)
@@ -27,12 +31,12 @@ getProducts<- function(Product=NULL, Source=NULL,	Attribute=NULL,	Component=NULL
     sql <- "Select * from products where Product = ? and Source = ?"
   }else if(!is.null(Product)){
     q_params <- list(Product)
-    sql <- "Select * from products where Product = ?"
+    sql <- "Select * from products where DataType = ?"
   }else{
     stop("Please specifiy a data group at least to the 'Product' level")
   }
 
-  prods = doQuery(sql = sql)
+  prods = doQuery(sql = sql, params = q_params)
 
  return(prods)
 }

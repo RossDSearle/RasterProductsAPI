@@ -1,14 +1,13 @@
 library(stringr)
-library(XML)
-library(xml2)
-library(lubridate)
+
+
 
 #To start in supervisorctl on esoil use this - "sudo supervisorctl -c /etc/supervisor/supervisord.conf start plumber_SoilFed"
 
 machineName <- as.character(Sys.info()['nodename'])
 if(machineName=='soils-discovery'){
 
-  deployDir <-'/srv/plumber/SLGAapi'
+  deployDir <-'/srv/plumber/TERNLandscapes/RasterProductsAPI'
   logDir <- '/mnt/data/APILogs/SLGAapi/'
 }else{
   deployDir <-'C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/SLGAapi'
