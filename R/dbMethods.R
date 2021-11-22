@@ -1,3 +1,5 @@
+library(RSQLite)
+library(DBI)
 
 getProducts<- function(Product=NULL, Source=NULL,	Attribute=NULL,	Component=NULL){
 
