@@ -1,7 +1,4 @@
 
-
-getProducts(Product = 'SLGA')
-
 getProducts<- function(Product=NULL, Source=NULL,	Attribute=NULL,	Component=NULL){
 
   conn <- DBI::dbConnect(RSQLite::SQLite(), productsDB)
