@@ -11,6 +11,12 @@ if(machineName=='soils-discovery'){
   productsDB <- 'C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/APIs/RasterProductsAPI/DB/RasterProducts.db'
 }
 
+
+source(paste0(deployDir, '/R/dbMethods.R'))
+source(paste0(deployDir, '/R/rasterMethods.R'))
+source(paste0(deployDir, '/R/apiHelpers.R'))
+
+
 storeRoot='https://esoil.io/TERNLandscapes/Public/Products/TERN'
 covariateRoot <- paste0(storeRoot, '/Covariates')
 

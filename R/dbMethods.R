@@ -19,19 +19,19 @@ doQuery <- function(sql, params){
 
 getProducts<- function(DataType=NULL, Source=NULL,	Attribute=NULL,	Component=NULL){
 
-  print(paste0('Product = ', Product))
+  print(paste0('Product = ', DataType))
 
   if(!is.null(Component)){
 
     q_params <- list(DataType, Source,	Attribute,	Component)
-    sql <- "Select * from products where Product = ? and Source = ? and Attribute = ? and Component= ?"
+    sql <- "Select * from products where DataType = ? and Source = ? and Attribute = ? and Component= ?"
   }else if(!is.null(Attribute)){
     q_params <- list(DataType, Source,	Attribute)
-    sql <- "Select * from products where Product = ? and Source = ? and Attribute = ?"
+    sql <- "Select * from products where DataType = ? and Source = ? and Attribute = ?"
   }else if(!is.null(Source)){
     q_params <- list(DataType, Source)
-    sql <- "Select * from products where Product = ? and Source = ?"
-  }else if(!is.null(Product)){
+    sql <- "Select * from products where DataType = ? and Source = ?"
+  }else if(!is.null(DataType)){
     q_params <- list(DataType)
     sql <- "Select * from products where DataType = ?"
   }else{
