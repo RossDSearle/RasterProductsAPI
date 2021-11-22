@@ -1,10 +1,18 @@
-library()
 
-getProducts(Product = 'SLGA')
+
+
+doQuery <- function(conn, sql){
+
+  conn <- DBI::dbConnect(RSQLite::SQLite(), productsDB)
+  qry <- dbSendQuery(conn, sql)
+  res <- dbFetch(qry)
+  dbClearResult(qry)
+  dbDisconnect(conn)
+  return(res)
+}
 
 getProducts<- function(Product=NULL, Source=NULL,	Attribute=NULL,	Component=NULL){
 
-  conn <- DBI::dbConnect(RSQLite::SQLite(), productsDB)
   print(paste0('Product = ', Product))
 
   if(!is.null(Component)){
@@ -23,11 +31,8 @@ getProducts<- function(Product=NULL, Source=NULL,	Attribute=NULL,	Component=NULL
   }else{
     stop("Please specifiy a data group at least to the 'Product' level")
   }
-  res <- dbSendQuery(conn, sql, params = q_params)
- prods <- dbFetch(res)
 
-
- DBI::dbDisconnect(conn)
+  prods = doQuery(sql = sql)
 
  return(prods)
 }
