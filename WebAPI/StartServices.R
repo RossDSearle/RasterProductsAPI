@@ -3,7 +3,7 @@ library(plumber)
 machineName <- as.character(Sys.info()['nodename'])
 if(machineName=='soils-discovery'){
 
-  deployDir <-'/srv/plumber/TERNLandscapes/RasterProducts'
+  deployDir <-'/srv/plumber/TERNLandscapes/RasterProductsAPI'
   server <- '0.0.0.0'
   options("plumber.host" = 'esoil.io/TERNLandscapes/RasterProducts/')
   portNum <- 8079
