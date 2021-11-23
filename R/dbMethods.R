@@ -112,6 +112,7 @@ registerDB <- function(FirstName=NULL, LastName=NULL,	Email=NULL,	Organisation=N
     msg <- paste0("User Exists " , Email, ".</P><P> Please contact ross.searle@csiro.au to sort this out.</P><P> Did you click on the link in the email we sent you?<P>")
   }
 
+  return(msg)
 
 }
 
