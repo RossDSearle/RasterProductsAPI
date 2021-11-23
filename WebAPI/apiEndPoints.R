@@ -59,6 +59,31 @@ writeLogEntry <- function(logfile, logentry){
 }
 
 
+#* Register to use the API - Your API user name will be your email address and the the API key will be returned by this endpoint response
+#* @param format (Optional) format of the response to return. Either json, csv, or xml. Default = json
+
+#* @param organisation Your organisation name
+#* @param email Your email address
+#* @param lastname Your surname
+#* @param firstname Your first name
+#*
+#* @tag Raster Products
+#* @get /Register
+apiRegister <- function( req, res, firstname=NULL, lastname=NULL,	email=NULL,	organisation=NULL, usr=NULL, key=NULL, format='json'){
+  tryCatch({
+
+    rdf <- registerDB( FirstName=firstname, LastName=lastname,	Email=email,	Organisation=organisation)
+    resp <- cerealize(prodDF, label, format, res)
+    return(resp)
+
+  }, error = function(res)
+  {
+    print(geterrmessage())
+    res$status <- 400
+    list(error=jsonlite::unbox(geterrmessage()))
+  })
+}
+
 
 
 
@@ -68,18 +93,19 @@ writeLogEntry <- function(logfile, logentry){
 #* @param usr (Optional) User name for accessing the API. To register for an API key go to - https://shiny.esoil.io/SoilDataFederator/Register/
 #* @param format (Optional) format of the response to return. Either json, csv, or xml. Default = json
 
+#* @param product
 #* @param component
 #* @param attribute
 #* @param source
 #* @param datatype
 #*
 #* @tag Raster Products
-#* @get /Products
-apiGetProducts <- function( req, res, datatype=NULL, source=NULL,	attribute=NULL,	component=NULL, usr=NULL, key=NULL, format='json'){
+#* @get /ProductInfo
+apiGetProducts <- function( req, res, product=NULL, datatype=NULL, source=NULL,	attribute=NULL,	component=NULL, usr=NULL, key=NULL, format='json'){
 
   tryCatch({
 
-    prodDF <- getProducts(DataType=datatype, Source=source,	Attribute=attribute,	Component=component)
+    prodDF <- getProducts(Product=product, DataType=datatype, Source=source,	Attribute=attribute, Component=component)
     print(prodDF)
 
     #library(terra)
@@ -114,4 +140,42 @@ apiGetProducts <- function( req, res, datatype=NULL, source=NULL,	attribute=NULL
   })
 }
 
+
+
+
+#* Returns data values at from a raster cell from the Raster Products Store
+
+#* @param key (Optional)  API key for accessing the API.
+#* @param usr (Optional) User name for accessing the API. To register for an API key go to - https://shiny.esoil.io/SoilDataFederator/Register/
+#* @param format (Optional) format of the response to return. Either json, csv, or xml. Default = json
+
+#* @param product
+#* @param component
+#* @param attribute
+#* @param source
+#* @param datatype
+#* @param latitude
+#* @param longitude
+#*
+#* @tag Raster Products
+#* @get /Drill
+apiDrillRasters <- function( req, res, longitude=NULL, latitude=NULL, product=NULL, datatype=NULL, source=NULL,	attribute=NULL,	component=NULL, usr=NULL, key=NULL, format='json'){
+
+  tryCatch({
+
+    prodDF <- getDrill(Longitude=longitude, Latitude=latitude, Product=product, DataType=datatype, Source=source,	Attribute=attribute, Component=component)
+    print(prodDF)
+
+    label <- ''
+
+    resp <- cerealize(prodDF, label, format, res)
+    return(resp)
+
+  }, error = function(res)
+  {
+    print(geterrmessage())
+    res$status <- 400
+    list(error=jsonlite::unbox(geterrmessage()))
+  })
+}
 
