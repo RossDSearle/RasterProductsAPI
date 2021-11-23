@@ -17,6 +17,9 @@ source(paste0(deployDir, '/R/rasterMethods.R'))
 source(paste0(deployDir, '/R/apiHelpers.R'))
 
 
+adminPerson <- 'Ross Searle'
+adminEmail <- 'ross.searle@csiro.au'
+
 storeRoot='https://esoil.io/TERNLandscapes/Public/Products/TERN'
 covariateRoot <- paste0(storeRoot, '/Covariates')
 
