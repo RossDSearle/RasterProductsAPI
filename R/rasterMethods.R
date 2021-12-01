@@ -18,16 +18,14 @@ drillRasters <- function(Products, Longitude, Latitude, Verbose=T){
      rec <- Products[i,]
 
 
-     # p <- str_replace_all(rec$COGsPath, 'https://esoil.io/TERNLandscapes/Public/Products', '/datasets/work/lw-soildatarepo/work/http/Products')
-     # r <- raster::raster(p)
-     # print(r)
-     # val <- raster::extract(r, pt)
+      # p <- str_replace_all(rec$COGsPath, 'https://esoil.io/TERNLandscapes/Public/Products', '/datasets/work/lw-soildatarepo/work/http/Products')
+      # r <- raster::raster(p)
+      # val <- raster::extract(r, pt)
+      # v = as.numeric(val)
 
      rl <- rast(paste0('/vsicurl/',rec$COGsPath))
      val <- terra::extract(rl, pt)
-
-
-   v = as.numeric(val[1,1])
+     v = as.numeric(val[1,1])
 
     if(Verbose){
 
