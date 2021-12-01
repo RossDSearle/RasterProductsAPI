@@ -165,7 +165,7 @@ apiDrillRasters <- function( req, res, longitude=NULL, latitude=NULL, product=NU
 
   tryCatch({
 
-    prodDF <- getDrillData(Longitude=longitude, Latitude=latitude, Product=product, DataType=datatype, Source=source,	Attribute=attribute, Component=component, Verbose=verbose)
+    prodDF <- getDrillData(Longitude=as.numeric(longitude), Latitude=as.numeric(latitude), Product=product, DataType=datatype, Source=source,	Attribute=attribute, Component=component, Verbose=verbose)
     print(prodDF)
 
     label <- ''
