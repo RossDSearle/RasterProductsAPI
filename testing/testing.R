@@ -1,8 +1,8 @@
 library(RSQLite)
 
-source('C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/APIs/RasterProductsAPI/config.R')
-source('C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/APIs/RasterProductsAPI/R/dbMethods.R')
-source('C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/APIs/RasterProductsAPI/R/rasterMethods.R')
+#source('C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/APIs/RasterProductsAPI/config.R')
+source('/srv/plumber/TERNLandscapes/RasterProductsAPI/config.R')
+
 
 rpdb <- 'C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/APIs/RasterProductsAPI/DB/RasterProducts.db'
 d <- read.csv('C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/SLGAapi/RasterProductDB.csv', stringsAsFactors = F)
@@ -35,7 +35,7 @@ getProducts2(Attribute='Clay Content')
 lon = 140
 lat = -25
 
-getDrillData(Product='SLGA', DataType='Soil', Source='TERN',	Attribute='Avalaible Water Capacity',	Component='EV', Longitude = lon, Latitude = lat, Verbose = T)
+getDrillData(Product='SLGA', DataType='Soil', Source='TERN',	Attribute='Avalaible Water Capacity',	Component='EV', Longitude = 140, Latitude = -26, Verbose = T)
 
 getDrillData(Product='SLGA', 	Attribute='Avalaible Water Capacity',	Component='EV', Longitude = lon, Latitude = lat, Verbose = T)
 getDrillData(Product='SLGA', 	Attribute='Clay Content', Longitude = lon, Latitude = lat, Verbose = F)

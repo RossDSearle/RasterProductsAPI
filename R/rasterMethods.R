@@ -1,26 +1,37 @@
 library(terra)
-
+library(raster)
 
 
 drillRasters <- function(Products, Longitude, Latitude, Verbose=T){
 
-  pt <- as.matrix(data.frame(x=c(Longitude), y=c(Latitude)))
+  xlon <- as.numeric(Longitude)
+  xlat <- as.numeric(Latitude)
+
+  pt <- as.matrix(data.frame(x=c(xlon), y=c(xlat)))
   print(pt)
   odf <- data.frame()
 
+  fls <- list.files('/datasets/work/lw-soildatarepo/work/http/Products/TERN/SLGA/CLY', full.names = T)
 
   for (i in 1:nrow(Products)) {
 
      rec <- Products[i,]
      print(rec)
-     rl <- rast(paste0('/vsicurl/',rec$COGsPath))
-     val <- terra::extract(rl, pt)
+
+
+     # p <- str_replace_all(rec$COGsPath, 'https://esoil.io/TERNLandscapes/Public/Products', '/datasets/work/lw-soildatarepo/work/http/Products')
+     # r <- raster::raster(p)
+     # print(r)
+     # val <- raster::extract(r, pt)
+
+       rl <- terra::rast('/datasets/work/lw-soildatarepo/work/http/Products/TERN/SLGA/CLY/CLY_100_200_EV_N_P_AU_NAT_C_20140801.tif')
+       val <- terra::extract(rl, pt)
 
     print(val)
 
     if(Verbose){
 
-      rdf <- data.frame(rec, Value=val[1,])
+      rdf <- data.frame(rec, Value=val)
     }else{
 
       rdf <- data.frame(rec$Name, Value=val[1,])
