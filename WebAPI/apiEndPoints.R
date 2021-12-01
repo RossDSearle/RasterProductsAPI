@@ -10,7 +10,7 @@ if(machineName=='soils-discovery'){
   deployDir <-'/srv/plumber/TERNLandscapes/RasterProductsAPI'
   logDir <- '/mnt/data/APILogs/SLGAapi/'
 }else{
-  deployDir <-'C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/APIs/RasterProductsAPI'
+  deployDir <<-'C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/APIs/RasterProductsAPI'
   logDir <- 'c:/temp/Logs'
 }
 
@@ -59,13 +59,13 @@ writeLogEntry <- function(logfile, logentry){
 }
 
 
-#* Register to use the API - Your API user name will be your email address and the the API key will be returned by this endpoint response
+#* Register to use the API - Your API user name will be your email address and the the API key will be emailed to you
 #* @param format (Optional) format of the response to return. Either json, csv, or xml. Default = json
 
-#* @param organisation Your organisation name
-#* @param email Your email address
-#* @param lastname Your surname
-#* @param firstname Your first name
+#* @param organisation (Required) Your organisation name
+#* @param email (Required) Your email address
+#* @param lastname  (Required) Your surname
+#* @param firstname (Required) Your first name
 #*
 #* @tag Raster Products
 #* @get /Register
@@ -73,7 +73,7 @@ apiRegister <- function( req, res, firstname=NULL, lastname=NULL,	email=NULL,	or
   tryCatch({
 
     rdf <- registerDB( FirstName=firstname, LastName=lastname,	Email=email,	Organisation=organisation)
-    resp <- cerealize(prodDF, label, format, res)
+    resp <- cerealize(rdf, label, format, res)
     return(resp)
 
   }, error = function(res)
@@ -89,15 +89,15 @@ apiRegister <- function( req, res, firstname=NULL, lastname=NULL,	email=NULL,	or
 
 #* Returns information about the DataSets available the Raster Products Store
 
-#* @param key (Optional)  API key for accessing the API.
-#* @param usr (Optional) User name for accessing the API. To register for an API key go to - https://shiny.esoil.io/SoilDataFederator/Register/
+#* @param key (Required)  API key for accessing the API.
+#* @param usr (Required) User name for accessing the API. To register for an API key go to - https://shiny.esoil.io/SoilDataFederator/Register/
 #* @param format (Optional) format of the response to return. Either json, csv, or xml. Default = json
 
-#* @param product
-#* @param component
-#* @param attribute
-#* @param source
-#* @param datatype
+#* @param product (Required)
+#* @param component (Optional)
+#* @param attribute (Optional)
+#* @param source (Optional)
+#* @param datatype (Optional)
 #*
 #* @tag Raster Products
 #* @get /ProductInfo
