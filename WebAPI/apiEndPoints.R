@@ -1,4 +1,5 @@
 library(stringr)
+library(terra)
 
 
 
@@ -149,6 +150,7 @@ apiGetProducts <- function( req, res, product=NULL, datatype=NULL, source=NULL,	
 #* @param usr (Optional) User name for accessing the API. To register for an API key go to - https://shiny.esoil.io/SoilDataFederator/Register/
 #* @param format (Optional) format of the response to return. Either json, csv, or xml. Default = json
 
+#* @param verbose
 #* @param product
 #* @param component
 #* @param attribute
@@ -159,11 +161,11 @@ apiGetProducts <- function( req, res, product=NULL, datatype=NULL, source=NULL,	
 #*
 #* @tag Raster Products
 #* @get /Drill
-apiDrillRasters <- function( req, res, longitude=NULL, latitude=NULL, product=NULL, datatype=NULL, source=NULL,	attribute=NULL,	component=NULL, usr=NULL, key=NULL, format='json'){
+apiDrillRasters <- function( req, res, longitude=NULL, latitude=NULL, product=NULL, datatype=NULL, source=NULL,	attribute=NULL,	component=NULL, usr=NULL, key=NULL, format='json', verbose=T){
 
   tryCatch({
 
-    prodDF <- getDrill(Longitude=longitude, Latitude=latitude, Product=product, DataType=datatype, Source=source,	Attribute=attribute, Component=component)
+    prodDF <- getDrillData(Longitude=longitude, Latitude=latitude, Product=product, DataType=datatype, Source=source,	Attribute=attribute, Component=component, Verbose=verbose)
     print(prodDF)
 
     label <- ''

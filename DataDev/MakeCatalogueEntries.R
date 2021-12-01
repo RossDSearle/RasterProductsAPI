@@ -53,8 +53,10 @@ for(i in 1:nrow(SLGAAttributes)){
   for (j in 1:length(slgaComponents)) {
     for (k in 1:length(slgaUpperDepths)) {
 
-      p <- paste0(rootDir, '/', rec$DirNames, '/', rec$code, '_', slgaUpperDepths[k], '_', slgaLowerDepths[k], '_', slgaComponents[j], slgaSuffix, '.tif' )
-      print(p)
+      fname <- paste0(  rec$code, '_', slgaUpperDepths[k], '_', slgaLowerDepths[k], '_', slgaComponents[j], slgaSuffix, '.tif' )
+      filePath <- paste0(rootDir,'/', rec$DirNames, '/', fname )
+      webPath <- paste0('https://esoil.io/TERNLandscapes/Public/Products/TERN/SLGA/', rec$code, '/', fname)
+      print(filePath)
 
       rdf <- data.frame( Product='SLGA',
                          DataType='Soil',
@@ -66,8 +68,8 @@ for(i in 1:nrow(SLGAAttributes)){
                          Description = paste0(slgaComponentsFulnames[j], ' of ', rec$Desc, ' for ', as.numeric(slgaUpperDepths[k])/100, ' to ', as.numeric(slgaLowerDepths[k])/100, ' metres' ),
                          UpperDepth_m = as.numeric(slgaUpperDepths[k])/100,
                          LowerDepth_m = as.numeric(slgaLowerDepths[k])/100,
-                         Path=p,
-                         COGsPath='',
+                         Path=filePath,
+                         COGsPath=webPath,
                          MetadataLink = 'https://www.clw.csiro.au/aclep/soilandlandscapegrid/index.html')
 
       odf <- rbind(odf, rdf)

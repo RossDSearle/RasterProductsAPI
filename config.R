@@ -2,11 +2,12 @@
 machineName <- as.character(Sys.info()['nodename'])
 if(machineName=='soils-discovery'){
 
+  deployDir <- '/mnt/data/APILogs/SoilDataFederator/'
   logDir <- '/mnt/data/APILogs/SoilDataFederator/'
   productsDB <- '/srv/plumber/TERNLandscapes/RasterProductsAPI/DB/RasterProducts.db'
 
 }else{
-  SLGARoot <- paste0('D:/TERNSoils/National_digital_soil_property_maps')
+  deployDir <- 'C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/APIs/RasterProductsAPI'
   logDir <- 'c:/temp/Logs'
   productsDB <- 'C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/APIs/RasterProductsAPI/DB/RasterProducts.db'
 }
@@ -27,9 +28,7 @@ covariateRoot <- paste0(storeRoot, '/Covariates')
 covMetaPath <- paste0(covariateRoot,'/Metadata/CovariateMetaData - 01-12-2020.csv')
 
 
-# test
 
-b=1
 
 
 
