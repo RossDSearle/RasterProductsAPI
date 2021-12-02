@@ -107,7 +107,7 @@ apiGetProducts <- function( req, res, product=NULL, datatype=NULL, source=NULL,	
 
   tryCatch({
 
-    prodDF <- getMetaData(Product=product, DataType=datatype, Source=source,	Attribute=attribute, Component=component, Name=name, Usr=usr, Key=key)
+    prodDF <- getMetaData(Product=product, DataType=datatype, Source=source,	Attribute=attribute, Component=component)
     print(prodDF)
 
     #library(terra)
