@@ -60,3 +60,5 @@ AuthenticateAPIKey(usr = 'ross.searle@csiro.au', key = '1ndw8K91CBFcYzh5Phvv')
 
 
 
+registerDB(FirstName='Ross', LastName='Searle',	Email='ross.searle@gmail.com',	Organisation='CSIRO')
+

@@ -70,7 +70,7 @@ registerDB <- function(FirstName=NULL, LastName=NULL,	Email=NULL,	Organisation=N
   q_params <- list(Email)
   sqlQry <- paste0("Select * from AuthUsers where usrID = ?")
   print(sqlQry)
-  user <- doQuery(sqlQry, q_params)
+  user <- doParamQuery(sqlQry, q_params)
 
   if(nrow(user) == 0 ){
 
@@ -92,3 +92,19 @@ registerDB <- function(FirstName=NULL, LastName=NULL,	Email=NULL,	Organisation=N
   return(msg)
 
 }
+
+
+AuthenticateAPIKey <- function(usr, key){
+
+  sql <- 'Select * from AuthUsers WHERE UsrID = ? and key=?'
+  ps <- c(usr, key)
+  res <- doParamQuery(sql, ps)
+
+  if(nrow(res) == 1){
+    return(T)
+  }else{
+    return(F)
+  }
+
+}
+

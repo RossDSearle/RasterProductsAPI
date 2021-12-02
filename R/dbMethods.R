@@ -138,17 +138,4 @@ getMetaData<- function(Product=NULL, DataType=NULL, Source=NULL, Attribute=NULL,
 }
 
 
-AuthenticateAPIKey <- function(usr, key){
-
-  sql <- 'Select * from AuthUsers WHERE UsrID = ? and key=?'
-  ps <- c(usr, key)
-  res <- doParamQuery(sql, ps)
-
-  if(nrow(res) == 1){
-    return(T)
-  }else{
-    return(F)
-  }
-
-}
 
