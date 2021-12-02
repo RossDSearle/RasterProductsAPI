@@ -125,7 +125,7 @@ getDrillData <- function(Product=NULL, DataType=NULL, Source=NULL,	Attribute=NUL
   if(is.null(Product) & is.null(DataType) & is.null(Source) & is.null(Attribute) & is.null(Component) & is.null(Name)){
     stop('Please specify a filter')
   }
-
+print("here")
  prods <- getProducts2(Product=Product, DataType=DataType, Source=Source,	Attribute=Attribute,	Component=Component, Name=Name)
 
  if(nrow(prods) == 0){
