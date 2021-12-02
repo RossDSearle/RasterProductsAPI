@@ -152,6 +152,7 @@ apiGetProducts <- function( req, res, product=NULL, datatype=NULL, source=NULL,	
 
 #* @param verbose
 #* @param product
+#* @param name
 #* @param component
 #* @param attribute
 #* @param source
@@ -161,11 +162,11 @@ apiGetProducts <- function( req, res, product=NULL, datatype=NULL, source=NULL,	
 #*
 #* @tag Raster Products
 #* @get /Drill
-apiDrillRasters <- function( req, res, longitude=NULL, latitude=NULL, product=NULL, datatype=NULL, source=NULL,	attribute=NULL,	component=NULL, usr=NULL, key=NULL, format='json', verbose=T){
+apiDrillRasters <- function( req, res, longitude=NULL, latitude=NULL, product=NULL, datatype=NULL, source=NULL,	attribute=NULL,	component=NULL, name=NULL, usr=NULL, key=NULL, format='json', verbose=T){
 
   tryCatch({
 
-    prodDF <- getDrillData(Longitude=as.numeric(longitude), Latitude=as.numeric(latitude), Product=product, DataType=datatype, Source=source,	Attribute=attribute, Component=component, Verbose=verbose)
+    prodDF <- getDrillData(Longitude=as.numeric(longitude), Latitude=as.numeric(latitude), Product=product, DataType=datatype, Source=source,	Attribute=attribute, Component=component, Name=name, Verbose=verbose)
     print(prodDF)
 
     label <- ''

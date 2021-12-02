@@ -15,6 +15,19 @@ doQuery <- function(sql, params){
   return(res)
 }
 
+runSQL <- function(sql){
+
+  print(productsDB)
+
+  conn <- DBI::dbConnect(RSQLite::SQLite(), productsDB)
+
+  qry <- dbSendQuery(conn, sql)
+  res <- dbFetch(qry)
+  dbClearResult(qry)
+  dbDisconnect(conn)
+  return(res)
+}
+
 ##############   SLGA   ############
 
 slgacodes <-  c("AWC" ,  "BDW"  ,  "CLY",  "DER" ,  "DES" ,  "ECE"  ,  "NTO",   "pHc",  "PTO" ,  "SLT" ,  "SND" ,  "SOC")
@@ -84,3 +97,40 @@ productsDB <- 'C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/API
 conn <- DBI::dbConnect(RSQLite::SQLite(), productsDB)
 
 DBI::dbWriteTable(conn, 'Products', odf)
+
+
+
+###### Windspeed
+
+
+
+sql <- "select * from Products"
+df <- runSQL(sql)
+DBI::dbWriteTable(conn, 'Products2', df)
+
+ws <- read.csv('C:/Projects/RasterProductsAPI/DataMassage/Windspeed.csv', stringsAsFactors = F)
+DBI::dbAppendTable(conn, 'Products', ws)
+
+
+
+########  SLGA Covariates
+
+sql <- "select * from Products"
+df <- runSQL(sql)
+DBI::dbWriteTable(conn, 'Products3', df)
+
+covs <- read.csv('C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/APIs/RasterProductsAPI/DB/DataMassage/Covariates.csv', stringsAsFactors = F)
+head(covs)
+
+idxs <- which(covs$Resolution == '30m')
+covs$COGsPath[idxs] <- paste0('https://esoil.io/TERNLandscapes/Public/Products/TERN/Covariates/Mosaics/30m/', covs$Name[idxs], '.tif')
+
+idxs <- which(covs$Resolution == '90m')
+covs$COGsPath[idxs] <- paste0('https://esoil.io/TERNLandscapes/Public/Products/TERN/Covariates/Mosaics/90m/', covs$Name[idxs], '.tif')
+
+
+covs$MetadataLink <- 'https://shiny.esoil.io/Covariates'
+colnames(covs)[11] <- "UpperDepth_m"
+
+
+DBI::dbAppendTable(conn, 'Products', covs)

@@ -1,6 +1,6 @@
 library(terra)
 library(raster)
-
+library(httr)
 
 drillRasters <- function(Products, Longitude, Latitude, Verbose=T){
 
@@ -23,9 +23,12 @@ drillRasters <- function(Products, Longitude, Latitude, Verbose=T){
       # val <- raster::extract(r, pt)
       # v = as.numeric(val)
 
+     #if(!http_error(rec$COGsPath)){
+
      rl <- rast(paste0('/vsicurl/',rec$COGsPath))
      val <- terra::extract(rl, pt)
      v = as.numeric(val[1,1])
+
 
     if(Verbose){
 
@@ -33,11 +36,15 @@ drillRasters <- function(Products, Longitude, Latitude, Verbose=T){
       #colnames(rdf) <- c('Name', 'Value')
     }else{
 
-      rdf <- data.frame(rec$Name, Value= v )
-      colnames(rdf) <- c('Name', 'Value')
+      rdf <- data.frame(rec$Name, Value= v, Units=rec$Units )
+      colnames(rdf) <- c('Name', 'Value', 'Units')
     }
 
     odf <- rbind(odf, rdf)
+
+    # }else{
+    #    print(paste0('URL does not exist - ', rec$COGsPath))
+    # }
   }
 
   return(odf)
@@ -46,35 +53,27 @@ drillRasters <- function(Products, Longitude, Latitude, Verbose=T){
 
 
 
+pointsInAustralia <- function(Lon, Lat){
 
+  outdf <- if(Lon > 112.9211 &  Lon < 153.6386 &  Lat > -43.64309 &  Lat < -9.229727){
+    return(T)
+  }else{
+    return(F)
+  }
 
-# drillSLGA <- function(){
-#
-#
-#   odf <- data.frame(filename=character(), Val=numeric())
-#   for (i in 1:nrow(SLGAAttributes)) {
-#
-#
-#     rec <- SLGAAttributes[i,]
-#
-#     if(rec$code != 'DER' & rec$code != 'DES'){
-#     #r <- rast('/vsicurl/https://esoil.io/TERNLandscapes/Public/Products/TERN/Covariates/Mosaics/90m/Veg_LandCoverTrend_evi_mean.tif')
-#     f<-paste0(SLGARoot, '/', SLGAAttributes$DirNames[i], '/',SLGAAttributes$code[i], '_000_005_EV_N_P_AU_NAT_C_20140801.tif')
-#     r <- rast(f)
-#     #pts <- as.matrix(data.frame(x=c(140, 143), y=c(-25, -30)))
-#     pts <- as.matrix(data.frame(x=c(140), y=c(-25)))
-#     vals <- extract(r, pts)
-#
-#     rdf <- data.frame(path=f, val=vals)
-#     colnames(rdf) <- c('filename', 'Val')
-#     odf <- rbind(odf, rdf)
-#     }
-#   }
-#
-# return(odf)
-#
-# }
-
+  # odf <- data.frame(Longitude=lon, Latitude=Lat)
+  # pts <- st_as_sf(odf, coords = c("Longitude", "Latitude"), crs = 4326)
+  # pt1 = st_sfc(st_point(c(Longitude,Latitude)))
+  # sfPt = st_sf(geom = pt1)
+  #
+  # st_crs(pt1) = 4326
+  #
+  # da <- convertMetersToArcSecs(Latitude, Radius)
+  #
+  # buff <- st_buffer( pt1, da)
+  # idxs <- which(lengths(st_within(pts, buff)) > 0)
+  # op <- pts[idxs,]
+}
 
 
 

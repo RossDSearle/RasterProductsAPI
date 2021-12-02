@@ -1,7 +1,7 @@
 library(RSQLite)
 
-#source('C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/APIs/RasterProductsAPI/config.R')
-source('/srv/plumber/TERNLandscapes/RasterProductsAPI/config.R')
+source('C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/APIs/RasterProductsAPI/config.R')
+#source('/srv/plumber/TERNLandscapes/RasterProductsAPI/config.R')
 
 
 rpdb <- 'C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/APIs/RasterProductsAPI/DB/RasterProducts.db'
@@ -28,6 +28,7 @@ dbFetch(res)
 
 
 Products <- getProducts(Product='SLGA', DataType='Soil', Source='TERN',	Attribute='Avalaible Water Capacity',	Component='EV')
+colnames(Products)
 getProducts2(Component='EV')
 getProducts2(Component='EV',	Attribute='Avalaible Water Capacity')
 getProducts2(Attribute='Clay Content')
@@ -43,10 +44,19 @@ getDrillData(Product='SLGA', 	Attribute='Clay Content', Longitude = lon, Latitud
 getDrillData(Product='SLGA', Component='EV', Longitude = lon, Latitude = lat, Verbose = F)
 
 
+getDrillData(Product='EEOWindspeed', Component='Monthly', Longitude = lon, Latitude = lat, Verbose = F)
+
+getDrillData(Product='90m_Covariate', Attribute='Soil', Longitude = lon, Latitude = lat, Verbose = F)
 
 
 
 
+Product=NULL; DataType=NULL; Source=NULL;	Attribute=NULL;	Component=NULL; Name=NULL;
+df <- getMetaData()
+colnames(df)
+
+
+AuthenticateAPIKey(usr = 'ross.searle@csiro.au', key = '1ndw8K91CBFcYzh5Phvv')
 
 
 
