@@ -99,14 +99,15 @@ apiRegister <- function( req, res, firstname=NULL, lastname=NULL,	email=NULL,	or
 #* @param attribute (Optional)
 #* @param source (Optional)
 #* @param datatype (Optional)
+#* @param name (Optional)
 #*
 #* @tag Raster Products
 #* @get /ProductInfo
-apiGetProducts <- function( req, res, product=NULL, datatype=NULL, source=NULL,	attribute=NULL,	component=NULL, usr=NULL, key=NULL, format='json'){
+apiGetProducts <- function( req, res, product=NULL, datatype=NULL, source=NULL,	attribute=NULL,	component=NULL, name=NULL, usr=NULL, key=NULL, format='json'){
 
   tryCatch({
 
-    prodDF <- getProducts(Product=product, DataType=datatype, Source=source,	Attribute=attribute, Component=component)
+    prodDF <- getMetaData(Product=product, DataType=datatype, Source=source,	Attribute=attribute, Component=component, Name=name)
     print(prodDF)
 
     #library(terra)
