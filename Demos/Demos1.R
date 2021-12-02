@@ -1,13 +1,4 @@
 library(jsonlite)
-library()
-
-fromJSON('http://127.0.0.1:6954/ProductInfo')
-fromJSON('http://127.0.0.1:6954/ProductInfo?product=EEOWindspeed')
-
-fromJSON('http://127.0.0.1:6954/Drill?longitude=140&latitude=-26&attribute=Clay%20Content&component=Value&verbose=F&usr=demo.user@somewhere.au&key=fjhf567sgq')
-
-
-fromJSON("http://127.0.0.1:6954/Register?firstname=Ross&lastname=Searle&email=ross.searle%40gmail.com&organisation=CSIRO")
 
 
 key = 'fjhf567sgq'
@@ -32,11 +23,16 @@ fromJSON(URLencode('https://esoil.io/TERNLandscapes/RasterProductsAPI/Drill?long
 # Drill the Annual Wind Speed product
 fromJSON(URLencode('https://esoil.io/TERNLandscapes/RasterProductsAPI/Drill?longitude=140&latitude=-26&product=EEOWindspeed&name=Near-Surface Wind Speed v10 - Annual&verbose=F&usr=demo.user@somewhere.au&key=fjhf567sgq'))
 
-# Drill all Wind Speed products
+# Drill the Annual Wind Speed product with verbose response
 fromJSON(URLencode('https://esoil.io/TERNLandscapes/RasterProductsAPI/Drill?longitude=140&latitude=-26&product=EEOWindspeed&name=Near-Surface Wind Speed v10 - Annual&verbose=F&usr=demo.user@somewhere.au&key=fjhf567sgq'))
+
+
+# Drill the SLGA 90m DSM "Soil" attribute Covariate rasters with a verbose response
+fromJSON(URLencode('https://esoil.io/TERNLandscapes/RasterProductsAPI/Drill?longitude=140&latitude=-26&product=90m_Covariate&attribute=Soil&verbose=T&usr=demo.user@somewhere.au&key=fjhf567sgq'))
 
 # Drill all depths of SLGA Clay Content products
 fromJSON(URLencode('https://esoil.io/TERNLandscapes/RasterProductsAPI/Drill?longitude=140&latitude=-26&attribute=Clay Content&component=Value&verbose=F&usr=demo.user@somewhere.au&key=fjhf567sgq'))
+
 
 
 

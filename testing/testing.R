@@ -51,7 +51,7 @@ getDrillData(Attribute='Soil', Longitude = lon, Latitude = lat, Verbose = F, Usr
 
 getDrillData(Attribute='Soil', Longitude = 4, Latitude = lat, Verbose = F, Usr= 'demo.user@somewhere.au' , Key='fjhf567sgq')
 
-getDrillData(Attribute='Soil', Longitude = lon, Latitude = lat, Product = 'EEOWindspeed', Name='Near-Surface Wind Speed v10 - Annual',  Verbose = F, Usr= 'demo.user@somewhere.au' , Key='fjhf567sgq')
+getDrillData(Longitude = lon, Latitude = lat, Product = 'EEOWindspeed', Name='Near-Surface Wind Speed v10 - Annual',  Verbose = F, Usr= 'demo.user@somewhere.au' , Key='fjhf567sgq')
 
 
 Product=NULL; DataType=NULL; Source=NULL;	Attribute=NULL;	Component=NULL; Name=NULL;
@@ -64,4 +64,17 @@ AuthenticateAPIKey(usr = 'ross.searle@csiro.au', key = '1ndw8K91CBFcYzh5Phvv')
 
 
 registerDB(FirstName='Ross', LastName='Searle',	Email='ross.searle@gmail.com',	Organisation='CSIRO')
+
+
+
+
+fromJSON(URLencode('http://127.0.0.1:6954/Drill?longitude=140&latitude=-26&product=EEOWindspeed&name=Near-Surface Wind Speed v10 - Annual&verbose=F&usr=demo.user@somewhere.au&key=fjhf567sgq'))
+
+
+
+
+
+
+
+
 

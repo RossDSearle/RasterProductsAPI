@@ -24,40 +24,40 @@ source(paste0(deployDir, '/config.R'))
 
 
 
-#' Log system time, request method and HTTP user agent of the incoming request
-#' @filter logger
-function(req, res){
-
-  logentry <- paste0(as.character(now()), ",",
-       machineName, ",",
-       req$REQUEST_METHOD, req$PATH_INFO, ",",
-       str_replace_all( req$HTTP_USER_AGENT, ",", ""), ",",
-       req$QUERY_STRING, ",",
-       req$REMOTE_ADDR
-      )
-
-  dt <- format(Sys.time(), "%d-%m-%Y")
-
-  if(!dir.exists(logDir)){
-     dir.create(logDir , recursive = T)
-    }
-
-  logfile <- paste0(logDir, "/SoilFederationAPI_logs_", dt, ".csv")
-  try(writeLogEntry(logfile, logentry), silent = TRUE)
-  plumber::forward()
-}
-
-
-writeLogEntry <- function(logfile, logentry){
-
-  if(file.exists(logfile)){
-    cat(logentry, '\n', file=logfile, append=T)
-  }else{
-    hdr <- paste0('System_time,Server,Request_method,HTTP_user_agent,QUERY_STRING,REMOTE_ADDR\n')
-    cat(hdr, file=logfile, append=F)
-    cat(logentry, '\n', file=logfile, append=T)
-  }
-}
+#' #' Log system time, request method and HTTP user agent of the incoming request
+#' #' @filter logger
+#' function(req, res){
+#'
+#'   logentry <- paste0(as.character(now()), ",",
+#'        machineName, ",",
+#'        req$REQUEST_METHOD, req$PATH_INFO, ",",
+#'        str_replace_all( req$HTTP_USER_AGENT, ",", ""), ",",
+#'        req$QUERY_STRING, ",",
+#'        req$REMOTE_ADDR
+#'       )
+#'
+#'   dt <- format(Sys.time(), "%d-%m-%Y")
+#'
+#'   if(!dir.exists(logDir)){
+#'      dir.create(logDir , recursive = T)
+#'     }
+#'
+#'   logfile <- paste0(logDir, "/SoilFederationAPI_logs_", dt, ".csv")
+#'   try(writeLogEntry(logfile, logentry), silent = TRUE)
+#'   plumber::forward()
+#' }
+#'
+#'
+#' writeLogEntry <- function(logfile, logentry){
+#'
+#'   if(file.exists(logfile)){
+#'     cat(logentry, '\n', file=logfile, append=T)
+#'   }else{
+#'     hdr <- paste0('System_time,Server,Request_method,HTTP_user_agent,QUERY_STRING,REMOTE_ADDR\n')
+#'     cat(hdr, file=logfile, append=F)
+#'     cat(logentry, '\n', file=logfile, append=T)
+#'   }
+#' }
 
 
 #* Register to use the API - Your API user name will be your email address and the the API key will be emailed to you
@@ -149,11 +149,14 @@ apiDrillRasters <- function( req, res, longitude=NULL, latitude=NULL, product=NU
 
   tryCatch({
 
+    #longitude=140; latitude=-28; product=NULL; datatype=NULL; source=NULL;	attribute=NULL;	component=NULL; name='Near-Surface Wind Speed v10 - Annual'; usr='demo.user@somewhere.au'; key='fjhf567sgq'; format='json'; verbose=F
+
     prodDF <- getDrillData(Longitude=as.numeric(longitude), Latitude=as.numeric(latitude), Product=product, DataType=datatype, Source=source,	Attribute=attribute, Component=component, Name=name, Verbose=verbose, Usr=usr, Key=key)
     print(prodDF)
 
     label <- ''
 
+    writeLog(df = prodDF, usr = usr, logDir = logDir)
     resp <- cerealize(prodDF, label, format, res)
     return(resp)
 
@@ -163,5 +166,21 @@ apiDrillRasters <- function( req, res, longitude=NULL, latitude=NULL, product=NU
     res$status <- 400
     list(error=jsonlite::unbox(geterrmessage()))
   })
+}
+
+
+writeLog <- function(df, usr, logDir){
+
+  if(!dir.exists(logDir)){dir.create(logDir)}
+  logFile <- paste0(logDir,'/RasterProductsAPI.csv')
+  if(!file.exists(logFile)){
+    cat('DateTime,User,Product,Count\n', sep = '', file = logFile, append = F)
+  }
+
+  if(nrow(df) > 0){
+    sdf <- df %>% group_by(Product) %>% summarise(n = n())
+    odf <- data.frame(DateTime=now(),User=usr,Product=sdf$Product,Count=sdf$n, stringsAsFactors = F)
+    write.table(odf, logFile,append = TRUE,sep = ",",col.names = FALSE, row.names = FALSE,  quote = FALSE)
+  }
 }
 
