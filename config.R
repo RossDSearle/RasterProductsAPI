@@ -4,12 +4,12 @@ if(machineName=='soils-discovery'){
 
   deployDir <- '/srv/plumber/TERNLandscapes/RasterProductsAPI'
   logDir <- '/mnt/data/APILogs/SoilDataFederator/'
-  productsDB <- '/srv/plumber/TERNLandscapes/RasterProductsAPI/DB/RasterProducts.db'
+  productsDB <- '/srv/DB/RasterProducts.db'
 
 }else{
   deployDir <- 'C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/APIs/RasterProductsAPI'
   logDir <- 'c:/temp/Logs'
-  productsDB <- 'C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/APIs/RasterProductsAPI/DB/RasterProducts.db'
+  productsDB <- 'C:/Users/sea084/OneDrive - CSIRO/ProjectAdmin/DataBases/RasterProducts.db'
 }
 
 source(paste0(deployDir, '/R/register.R'))

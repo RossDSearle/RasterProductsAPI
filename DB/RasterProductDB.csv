@@ -1,4 +1,0 @@
-Product,Source,Attribute,Component,DataType,Units,Description,UpperDepth,LowerDepth,Path,MetadataLink
-SLGA,TERN,Bulk-Density,Modelled Value,SoilData,g/cm3,test1,0,5,/slga/somewhe,http://slga
-Climate,CSIRO,Wind,Annual Average,Climatology,k/hr,test2,0,0,/test,http://slga
-SLGARelief,TERN,Relief,DEM,90mCovariate,m,test3,0,0,/hello,http://slga
