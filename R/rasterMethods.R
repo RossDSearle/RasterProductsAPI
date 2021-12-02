@@ -36,8 +36,8 @@ drillRasters <- function(Products, Longitude, Latitude, Verbose=T){
       #colnames(rdf) <- c('Name', 'Value')
     }else{
 
-      rdf <- data.frame(rec$Name, Value= v, Units=rec$Units )
-      colnames(rdf) <- c('Name', 'Value', 'Units')
+      rdf <- data.frame(rec$Product, rec$Name, Value= v, Units=rec$Units )
+      colnames(rdf) <- c('Product', 'Name', 'Value', 'Units')
     }
 
     odf <- rbind(odf, rdf)

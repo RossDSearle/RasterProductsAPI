@@ -46,9 +46,10 @@ getDrillData(Product='SLGA', Component='EV', Longitude = lon, Latitude = lat, Ve
 
 getDrillData(Product='EEOWindspeed', Component='Monthly', Longitude = lon, Latitude = lat, Verbose = F)
 
-getDrillData(Product='90m_Covariate', Attribute='Soil', Longitude = lon, Latitude = lat, Verbose = F)
+getDrillData(Product='90m_Covariate', Attribute='Soil', Longitude = lon, Latitude = lat, Verbose = F, Usr= 'demo.user@somewhere.au' , Key='fjhf567sgq')
+getDrillData(Attribute='Soil', Longitude = lon, Latitude = lat, Verbose = F, Usr= 'demo.user@somewhere.au' , Key='fjhf567sgq')
 
-
+getDrillData(Attribute='Soil', Longitude = 4, Latitude = lat, Verbose = F, Usr= 'demo.user@somewhere.au' , Key='fjhf567sgq')
 
 
 Product=NULL; DataType=NULL; Source=NULL;	Attribute=NULL;	Component=NULL; Name=NULL;

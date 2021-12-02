@@ -58,9 +58,6 @@ getProducts2 <- function(Product=NULL, DataType=NULL, Source=NULL,	Attribute=NUL
   conds <- c()
   q_params <-c()
 
-  # if(is.null(Product)){
-  #     stop("Please specifiy a data group at least to the 'Product' level")
-  # }
 
   if(!is.null(Component)){
     conds <- c(conds, paste0('Component= ?'))
@@ -111,14 +108,21 @@ getProducts2 <- function(Product=NULL, DataType=NULL, Source=NULL,	Attribute=NUL
 }
 
 
-getDrillData <- function(Product=NULL, DataType=NULL, Source=NULL,	Attribute=NULL,	Component=NULL, Name=NULL, Longitude=NULL, Latitude=NULL, Verbose=T){
+getDrillData <- function(Product=NULL, DataType=NULL, Source=NULL,	Attribute=NULL,	Component=NULL, Name=NULL, Longitude=NULL, Latitude=NULL, Verbose=T, Usr=NULL, Key=NULL){
 
   # Authenticate auth  <- AuthenticateAPIKey(usr, key)
+  if(is.null(Usr) | is.null(Key)){
+    stop('You need to provide a user name and API key to access to these datasets using the API endpoint at - https://esoil.io/TERNLandscapes/RasterProductsAPI/ProductInfo')
+
+  }
+  if(!AuthenticateAPIKey(usr = Usr, key = Key)){
+    stop('Athentication failed. You need to register to get access to these datasets using the API endpoint at - https://esoil.io/TERNLandscapes/RasterProductsAPI/ProductInfo')
+  }
   if(!pointsInAustralia(Longitude, Latitude)){
     stop('The coordinates you supplied are not within Australia')
   }
 
-  if(is.null(Product) & is.null(Product) & is.null(Product) & is.null(Product) & is.null(Product) & is.null(Product)){
+  if(is.null(Product) & is.null(DataType) & is.null(Source) & is.null(Attribute) & is.null(Component) & is.null(Name)){
     stop('Please specify a filter')
   }
 
