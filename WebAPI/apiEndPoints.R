@@ -61,7 +61,7 @@ writeLogEntry <- function(logfile, logentry){
 
 
 #* Register to use the API - Your API user name will be your email address and the the API key will be emailed to you
-#* @param format (Optional) format of the response to return. Either json, csv, or xml. Default = json
+#* @param format (Optional) Format of the response to return. Either json, csv, or xml. Default = json
 
 #* @param organisation (Required) Your organisation name
 #* @param email (Required) Your email address
@@ -91,15 +91,15 @@ apiRegister <- function( req, res, firstname=NULL, lastname=NULL,	email=NULL,	or
 #* Returns information about the DataSets available the Raster Products Store
 
 #* @param key (Required)  API key for accessing the API.
-#* @param usr (Required) User name for accessing the API. To register for an API key go to - https://shiny.esoil.io/SoilDataFederator/Register/
-#* @param format (Optional) format of the response to return. Either json, csv, or xml. Default = json
+#* @param usr (Required) User name for accessing the API. To register use the endpoint above "/Register"
+#* @param format (Optional) Format of the response to return. Either json, csv, or xml. Default = json
 
-#* @param product (Required)
-#* @param component (Optional)
-#* @param attribute (Optional)
-#* @param source (Optional)
-#* @param datatype (Optional)
-#* @param name (Optional)
+#* @param name (Optional) Filter by Product Name
+#* @param component (Optional) Filter by Component name
+#* @param attribute (Optional) Filter by Attribute name
+#* @param source (Optional) Filter by the Source of the data
+#* @param datatype (Optional) Filter by DataType
+#* @param product (Optional) Filter by Product name
 #*
 #* @tag Raster Products
 #* @get /ProductInfo
@@ -110,26 +110,7 @@ apiGetProducts <- function( req, res, product=NULL, datatype=NULL, source=NULL,	
     prodDF <- getMetaData(Product=product, DataType=datatype, Source=source,	Attribute=attribute, Component=component)
     print(prodDF)
 
-    #library(terra)
-    # r <- rast('/vsicurl/https://esoil.io/TERNLandscapes/Public/Products/TERN/Covariates/Mosaics/90m/Veg_LandCoverTrend_evi_mean.tif')
-    # pts <- as.matrix(data.frame(x=c(140, 143), y=c(-25, -30)))
-    # vals <- extract(r, pts)
-
-   # df <- data.frame(ID='Default', EstimateType="Modelled" )
-   # vals <- drillSLGA()
-
-    # df[1,1] <- 'test'
-    # df[2,1] <- 'test2'
-    # df[1,2] <- 'test3'
-    #
-    #
-    # vals <- c(1,2,3,4,5,6)
-    # vals2 <- c(10,20,30,40,50,6)
-    # df2 <- data.frame(bob=vals, bob2=vals)
-    # df[[2,2]] <- df2
-    # df
-    #
-     label <- ''
+   label <- ''
 
     resp <- cerealize(prodDF, label, format, res)
     return(resp)
@@ -145,21 +126,22 @@ apiGetProducts <- function( req, res, product=NULL, datatype=NULL, source=NULL,	
 
 
 
-#* Returns data values at from a raster cell from the Raster Products Store
+#* Returns data values at from a raster cell from the Raster Products Store. Any combination of Filters can be used. Some level of filtering must be specified.
 
-#* @param key (Optional)  API key for accessing the API.
-#* @param usr (Optional) User name for accessing the API. To register for an API key go to - https://shiny.esoil.io/SoilDataFederator/Register/
-#* @param format (Optional) format of the response to return. Either json, csv, or xml. Default = json
+#* @param key (Required)  API key for accessing the API.
+#* @param usr (Required)  User name for accessing the API. To register for an API key use the endpoint above "Register"
+#* @param format (Optional) Format of the response to return. Either json, csv, or xml. Default = json
 
-#* @param verbose
-#* @param product
-#* @param name
-#* @param component
-#* @param attribute
-#* @param source
-#* @param datatype
-#* @param latitude
-#* @param longitude
+#* @param verbose  Return Just the raster values and minimal identification (F - default) or return the full product information record with the raster Values
+
+#* @param name (Optional) Filter by Product Name
+#* @param component (Optional) Filter by Component name
+#* @param attribute (Optional) Filter by Attribute name
+#* @param source (Optional) Filter by the Source of the data
+#* @param datatype (Optional) Filter by DataType
+#* @param product (Optional) Filter by Product name
+#* @param latitude (Required) Latitude of the location to extract data for
+#* @param longitude (Required) Longitude of the location to extract data for
 #*
 #* @tag Raster Products
 #* @get /Drill
@@ -167,7 +149,7 @@ apiDrillRasters <- function( req, res, longitude=NULL, latitude=NULL, product=NU
 
   tryCatch({
 
-    prodDF <- getDrillData(Longitude=as.numeric(longitude), Latitude=as.numeric(latitude), Product=product, DataType=datatype, Source=source,	Attribute=attribute, Component=component, Name=name, Verbose=verbose, Name=name, Usr=usr, Key=key)
+    prodDF <- getDrillData(Longitude=as.numeric(longitude), Latitude=as.numeric(latitude), Product=product, DataType=datatype, Source=source,	Attribute=attribute, Component=component, Name=name, Verbose=verbose, Usr=usr, Key=key)
     print(prodDF)
 
     label <- ''
