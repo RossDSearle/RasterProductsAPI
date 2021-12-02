@@ -36,7 +36,7 @@ getProducts2(Attribute='Clay Content')
 lon = 140
 lat = -25
 
-getDrillData(Product='SLGA', DataType='Soil', Source='TERN',	Attribute='Avalaible Water Capacity',	Component='EV', Longitude = 140, Latitude = -26, Verbose = T)
+getDrillData(Product='SLGA', DataType='Soil', Source='TERN',	Attribute='Avalaible Water Capacity',	Component='Value', Longitude = 140, Latitude = -26, Verbose = F)
 
 getDrillData(Product='SLGA', 	Attribute='Avalaible Water Capacity',	Component='EV', Longitude = lon, Latitude = lat, Verbose = T)
 getDrillData(Product='SLGA', 	Attribute='Clay Content', Longitude = lon, Latitude = lat, Verbose = F)

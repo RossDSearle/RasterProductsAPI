@@ -94,12 +94,14 @@ getProducts2 <- function(Product=NULL, DataType=NULL, Source=NULL,	Attribute=NUL
 
   }else{
 
-    sql <- paste0(sql, ' WHERE ', conds[1])
+    sql <- paste0('Select * from Products WHERE ', conds[1])
     if(length(conds) > 1){
       for (i in 2:length(conds)) {
         sql <- paste0(sql, ' and ', conds[i])
       }
     }
+    print(sql)
+    print(q_params)
     prods = doParamQuery(sql = sql, params = q_params)
   }
 
