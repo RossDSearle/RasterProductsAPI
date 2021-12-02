@@ -51,6 +51,8 @@ getDrillData(Attribute='Soil', Longitude = lon, Latitude = lat, Verbose = F, Usr
 
 getDrillData(Attribute='Soil', Longitude = 4, Latitude = lat, Verbose = F, Usr= 'demo.user@somewhere.au' , Key='fjhf567sgq')
 
+getDrillData(Attribute='Soil', Longitude = lon, Latitude = lat, Product = 'EEOWindspeed', Name='Near-Surface Wind Speed v10 - Annual',  Verbose = F, Usr= 'demo.user@somewhere.au' , Key='fjhf567sgq')
+
 
 Product=NULL; DataType=NULL; Source=NULL;	Attribute=NULL;	Component=NULL; Name=NULL;
 df <- getMetaData()
