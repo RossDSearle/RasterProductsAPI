@@ -3,7 +3,7 @@ machineName <- as.character(Sys.info()['nodename'])
 if(machineName=='soils-discovery'){
 
   deployDir <- '/srv/plumber/TERNLandscapes/RasterProductsAPI'
-  logDir <- '/mnt/data/APILogs/SoilDataFederator/'
+  logDir <- '/mnt/data/APILogs/RasterProductsAPI/'
   productsDB <- '/srv/DB/RasterProductsAPI/RasterProducts.db'
 
 }else{
