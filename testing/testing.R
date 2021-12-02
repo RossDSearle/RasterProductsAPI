@@ -65,10 +65,10 @@ AuthenticateAPIKey(usr = 'ross.searle@csiro.au', key = '1ndw8K91CBFcYzh5Phvv')
 
 registerDB(FirstName='Ross', LastName='Searle',	Email='ross.searle@gmail.com',	Organisation='CSIRO')
 
-
-
+longitude=140; latitude=-28; product=NULL; datatype=NULL; source=NULL;	attribute=NULL;	component=NULL; name='Near-Surface Wind Speed v10 - Annual'; usr='demo.user@somewhere.au'; key='fjhf567sgq'; format='json'
 
 fromJSON(URLencode('http://127.0.0.1:6954/Drill?longitude=140&latitude=-26&product=EEOWindspeed&name=Near-Surface Wind Speed v10 - Annual&verbose=F&usr=demo.user@somewhere.au&key=fjhf567sgq'))
 
+fromJSON(URLencode('http://127.0.0.1:6954/Drill?longitude=140&latitude=-26&attribute=Clay Content&component=Value&verbose=F&usr=demo.user@somewhere.au&key=fjhf567sgq'))
 
 
