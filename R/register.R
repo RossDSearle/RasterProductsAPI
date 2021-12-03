@@ -35,6 +35,7 @@ updateKey <- function(sqlInsert, q_params){
 
   }, error = function(err) {
     print(err)
+    cat(err, file = '/home/sea084/err.txt')
     return(F)
   })
 }
