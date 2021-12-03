@@ -1,6 +1,4 @@
-library(terra)
-library(raster)
-library(httr)
+
 
 drillRasters <- function(Products, Longitude, Latitude, Verbose=T){
 

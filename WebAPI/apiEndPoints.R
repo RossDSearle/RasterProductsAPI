@@ -1,7 +1,3 @@
-library(stringr)
-library(terra)
-
-
 
 #To start in supervisorctl on esoil use this - "sudo supervisorctl -c /etc/supervisor/supervisord.conf start plumber_SoilFed"
 
@@ -9,7 +5,7 @@ machineName <- as.character(Sys.info()['nodename'])
 if(machineName=='soils-discovery'){
 
   deployDir <-'/srv/plumber/TERNLandscapes/RasterProductsAPI'
-  logDir <- '/mnt/data/APILogs/SLGAapi/'
+  logDir <- '/mnt/data/APILogs/RasterProductsAPI/'
 }else{
   deployDir <<-'C:/Users/sea084/OneDrive - CSIRO/RossRCode/Git/TernLandscapes/APIs/RasterProductsAPI'
   logDir <- 'c:/temp/Logs'
@@ -173,6 +169,7 @@ writeLog <- function(df, usr, logDir){
 
   if(!dir.exists(logDir)){dir.create(logDir)}
   logFile <- paste0(logDir,'/RasterProductsAPI.csv')
+  print(logFile)
   if(!file.exists(logFile)){
     cat('DateTime,User,Product,Count\n', sep = '', file = logFile, append = F)
   }

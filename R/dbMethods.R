@@ -1,6 +1,3 @@
-library(RSQLite)
-library(DBI)
-
 
 
 doParamQuery <- function(sql, params){

@@ -1,8 +1,16 @@
+library(dplyr)
+library(stringr)
+library(terra)
+library(raster)
+library(httr)
+library(RSQLite)
+library(DBI)
 
 machineName <- as.character(Sys.info()['nodename'])
 if(machineName=='soils-discovery'){
 
   deployDir <- '/srv/plumber/TERNLandscapes/RasterProductsAPI'
+  #logDir <- '/datasets/work/af-digiscapesm/work/Ross/TERN'
   logDir <- '/mnt/data/APILogs/RasterProductsAPI/'
   productsDB <- '/srv/DB/RasterProductsAPI/RasterProducts.db'
 

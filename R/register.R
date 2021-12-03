@@ -25,17 +25,19 @@ isValidString <- function(x) {
 updateKey <- function(sqlInsert, q_params){
   result <- tryCatch({
 
-    authcon <- dbConnect(RSQLite::SQLite(), productsDB, flags = SQLITE_RW)
+    authcon <- dbConnect(RSQLite::SQLite(), productsDB, flags=SQLITE_RW)
     rs <- dbSendStatement(authcon,sqlInsert)
     dbBind(rs, q_params)
+
     nr <- dbGetRowsAffected(rs)
-    print(nr)
+
     dbDisconnect(authcon)
+
     return(T)
 
   }, error = function(err) {
     print(err)
-    cat(err, file = '/home/sea084/err.txt')
+
     return(F)
   })
 }
@@ -68,7 +70,7 @@ registerDB <- function(FirstName=NULL, LastName=NULL,	Email=NULL,	Organisation=N
     stop('Please provide a valid email address')
   }
 
-  q_params <- list(Email)
+  q_params <- c(Email)
   sqlQry <- paste0("Select * from AuthUsers where usrID = ?")
   print(sqlQry)
   user <- doParamQuery(sqlQry, q_params)
@@ -76,10 +78,12 @@ registerDB <- function(FirstName=NULL, LastName=NULL,	Email=NULL,	Organisation=N
   if(nrow(user) == 0 ){
 
     apiKey <- makeRandomString(1)
-    sqlInsert <- paste0("Insert into AuthUsers (usrID, FirstName, Surname, Organisation, Key) VALUES(?, ?, ?, ?, ?)")
+    sqlInsert <- paste0("Insert into AuthUsers (usrID, FirstName, Surname, Organisation, Key) VALUES (?, ?, ?, ?, ?)")
     q_params <- list(Email,FirstName, LastName, Organisation, apiKey)
 
-    if(updateKey(sqlInsert, q_params)){
+    resp <- updateKey(sqlInsert, q_params)
+    #cat('Here', file = '/srv/plumber/TERNLandscapes/RasterProductsAPI/err.txt')
+    if(resp){
       msg <- paste0("Thanks for registering with the TERN Raster Products Web API. We just sent you an email containing the API key to use with the API. Please keep this somewhere safe.")
       emailInfo <- paste0('echo "<p> Dear ', FirstName, ',</p><p><br></p><p>Thanks for registering with the TERN Raster Products. </P><P>Your API key is - <span style=color:#FF0000;font-weight:bold;>',  apiKey,'</span></p><p><br></p><p>Regards</p><p>The TERN Landscape Team" | mail -s "$(echo "TERN Raster Products API Key Confirmation\nContent-Type: text/html")" ', Email,' -r no-reply@soils-discovery.csiro.au')
       system(emailInfo)
